@@ -77,7 +77,7 @@ pipeline {
 
         stage('Cleanup Old Zips') {
             steps {
-                bat "${SCRIPT_DIR}\\cleanup.bat"
+               bat 'scripts/cleanup.bat'
                 echo '🧹 Old zip files cleaned up'
             }
         }
