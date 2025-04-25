@@ -1,13 +1,18 @@
 @echo off
 echo ===== Compiling Java Source =====
 
-rem Create the build directory if it doesn't exist
-if not exist ..\build (
-    mkdir ..\build
+rem Ensure build directory exists
+if not exist "..\build" (
+    mkdir "..\build"
 )
 
-rem Compile Calculator.java and output .class to build folder
-javac -d ..\build ..\Calculator.java
+rem Compile all Java files to the build directory
+javac -d "..\build" "..\Calculator.java"
 
-echo ✅ Compilation completed.
+if %ERRORLEVEL% NEQ 0 (
+    echo ❌ Compilation failed.
+    exit /b %ERRORLEVEL%
+) else (
+    echo ✅ Compilation completed.
+)
 
