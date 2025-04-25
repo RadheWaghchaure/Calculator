@@ -12,7 +12,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/your-user/CalculatorApp.git'
+                git 'https://github.com/RadheWaghchaure/Calculator'
                 echo '✅ Code pulled from GitHub'
             }
         }
