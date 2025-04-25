@@ -53,12 +53,13 @@ pipeline {
             }
         }
         stage('Push Zip to GitHub') {
-            steps {
-                withCredentials([string(credentialsId: 'github-creds', variable: 'GIT_PASS')]) {
-                    bat 'scripts/push-to-github.bat'
-                }
-            }
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+            bat 'scripts/push-to-github.bat'
         }
+    }
+}
+
 
         
         stage('Send Email Report') {

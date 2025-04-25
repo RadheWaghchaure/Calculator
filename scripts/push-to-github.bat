@@ -1,21 +1,17 @@
 @echo off
-echo ===== Pushing Build Zip to GitHub =====
+echo ==== Pushing Build Zip to GitHub ====
+cd dist
 
-REM Navigate to project root (adjust if needed)
-cd ..
+REM Configure Git identity
+git config user.name "jenkins"
+git config user.email "jenkins@example.com"
 
-REM Set full path to Git
-set GIT_EXE=C:\Users\radheshamw\AppData\Local\Programs\Git\cmd\git.exe
+REM Initialize repo if needed
+if not exist .git (
+    git init
+    git remote add origin https://github.com/YourUsername/Calculator.git
+)
 
-REM Git config for Jenkins commits
-%GIT_EXE% config user.name "jenkins"
-%GIT_EXE% config user.email "jenkins@example.com"
-
-REM Add the latest ZIP from the archive folder
-%GIT_EXE% add archive\*.zip
-
-REM Commit with a message
-%GIT_EXE% commit -m "Automated build zip"
-
-REM Push to GitHub using Jenkins credentials
-%GIT_EXE% push https://RadheWaghchaure:%GIT_PASS%@github.com/RadheWaghchaure/Calculator.git
+git add *.zip
+git commit -m "Automated build zip"
+git push https://%GIT_USER%:%GIT_PASS%@github.com/YourUsername/Calculator.git main
