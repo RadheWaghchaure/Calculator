@@ -6,7 +6,7 @@ set CLASSPATH=.;%LIB%/junit-4.13.2.jar;%LIB%/hamcrest-core-1.3.jar
 
 if not exist test-classes mkdir test-classes
 
-javac -cp %CLASSPATH% -d test-classes src/Calculator.java test/CalculatorTest.java
+javac -cp %CLASSPATH% -d test-classes Calculator.java CalculatorTest.java
 
 if %errorlevel% neq 0 (
     echo Compilation failed.
@@ -16,5 +16,4 @@ if %errorlevel% neq 0 (
 java -cp %CLASSPATH%;test-classes org.junit.runner.JUnitCore CalculatorTest
 
 echo Test execution complete.
-
 
