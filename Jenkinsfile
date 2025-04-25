@@ -27,7 +27,7 @@ pipeline {
 
         stage('Run Unit Tests') {
             steps {
-                bat "${SCRIPT_DIR}\\test.bat"
+               bat 'scripts/test.bat'
                 echo '✅ Tests executed'
             }
         }
