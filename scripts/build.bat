@@ -1,17 +1,20 @@
 @echo off
 echo ===== Compiling Java Source =====
 
-rem Ensure build directory exists
-if not exist "..\build" (
-    mkdir "..\build"
+rem Set workspace dir to the directory above the scripts folder
+cd /d %~dp0..
+set "SRC=CalculatorApp\Calculator.java"
+set "OUT=build"
+
+if not exist %OUT% (
+    mkdir %OUT%
 )
 
-rem Compile the Java source file
-javac -d "..\build" "..\CalculatorApp\Calculator.java"
+javac -d %OUT% %SRC%
 
 if %ERRORLEVEL% NEQ 0 (
     echo ❌ Compilation failed.
     exit /b %ERRORLEVEL%
 ) else (
-    echo ✅ Compilation completed.
+    echo ✅ Compilation successful.
 )
