@@ -34,21 +34,21 @@ pipeline {
 
         stage('Package JAR') {
             steps {
-                bat "${SCRIPT_DIR}\\package.bat"
+                bat 'scripts/package.bat'
                 echo '✅ JAR packaged'
             }
         }
 
         stage('Run Application') {
             steps {
-                bat "${SCRIPT_DIR}\\run.bat"
+                bat 'scripts/run.bat'
                 echo '✅ Application started in background'
             }
         }
 
         stage('Archive Build') {
             steps {
-                bat "${SCRIPT_DIR}\\archive.bat"
+                bat 'scripts/archive.bat'
                 echo '✅ Build zipped'
             }
         }
