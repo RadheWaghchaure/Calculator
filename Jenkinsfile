@@ -12,10 +12,11 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/RadheWaghchaure/Calculator'
+                git branch: 'main', url: 'https://github.com/RadheWaghchaure/Calculator'
                 echo '✅ Code pulled from GitHub'
             }
         }
+
 
         stage('Build Java Code') {
             steps {
