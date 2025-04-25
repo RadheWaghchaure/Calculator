@@ -52,22 +52,15 @@ pipeline {
                 echo '✅ Build zipped'
             }
         }
-
         stage('Push Zip to GitHub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
-                    bat """
-                        cd ${APP_DIR}
-                        git config user.name "jenkins"
-                        git config user.email "jenkins@example.com"
-                        git add CalculatorAppBuild.zip
-                        git commit -m "Automated build zip"
-                        git push https://${GIT_USER}:${GIT_PASS}@github.com/your-user/CalculatorApp.git
-                    """
+                withCredentials([string(credentialsId: 'github-creds', variable: 'GIT_PASS')]) {
+                    bat 'scripts/push-to-github.bat'
                 }
             }
         }
 
+        
         stage('Send Email Report') {
             steps {
                 emailext(
