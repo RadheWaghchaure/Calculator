@@ -1,33 +1,34 @@
 @echo off
 echo ==== Pushing Build Zip to GitHub ====
 
-REM Go to the dist folder where zip is created
 cd ..
-cd dist
+cd archive
 
-REM Show current directory and files for debugging
 echo Current directory:
 cd
+
 echo Listing contents:
 dir
 
-REM Ensure the zip file exists
-if not exist build_*.zip (
+for %%f in (*.zip) do (
+    set ZIP_FILE=%%f
+)
+
+if not defined ZIP_FILE (
     echo ❌ ERROR: No build zip found!
     exit /b 1
 )
 
-REM Initialize git repo if not already
-if not exist .git (
-    "C:\Program Files\Git\cmd\git.exe" init
-    "C:\Program Files\Git\cmd\git.exe" remote add origin https://%GIT_USER%:%GIT_PASS%@github.com/RadheWaghchaure/Calculator.git
-)
+echo ✅ Found zip: %ZIP_FILE%
 
-REM Configure git user
-"C:\Program Files\Git\cmd\git.exe" config user.email "jenkins@example.com"
-"C:\Program Files\Git\cmd\git.exe" config user.name "Jenkins CI"
+git config --global user.name "Jenkins CI"
+git config --global user.email "jenkins@example.com"
 
-REM Add, commit, and push
-"C:\Program Files\Git\cmd\git.exe" add build_*.zip
-"C:\Program Files\Git\cmd\git.exe" commit -m "Add zipped build"
-"C:\Program Files\Git\cmd\git.exe" push
+git pull origin main
+copy "%ZIP_FILE%" .
+git add "%ZIP_FILE%"
+git commit -m "Add build archive %ZIP_FILE%"
+git push origin main
+
+echo ✅ Build zip pushed to GitHub.
+
