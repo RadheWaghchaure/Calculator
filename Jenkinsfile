@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build Java Code') {
             steps {
-                bat "${SCRIPT_DIR}\\build.bat"
+                bat 'scripts/build.bat'
                 echo '✅ Build completed'
             }
         }
