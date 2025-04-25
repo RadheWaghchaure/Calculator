@@ -1,11 +1,9 @@
 @echo off
 echo ===== Cleaning up old build zips =====
 
-set "ARCHIVE_DIR=%~dp0..\archive"
-pushd %ARCHIVE_DIR%
-
-:: Enable delayed expansion
 setlocal enabledelayedexpansion
+set "ARCHIVE_DIR=%CD%"
+pushd %ARCHIVE_DIR%
 
 :: Get the most recent zip file
 set "latest="
@@ -15,6 +13,12 @@ for /f "delims=" %%A in ('dir /b /a:-d /o:-d *.zip') do (
 )
 
 :found
+if not defined latest (
+    echo No zip files found.
+    popd
+    exit /b 0
+)
+
 echo Keeping latest build zip: !latest!
 
 :: Delete all others
@@ -25,5 +29,5 @@ for %%F in (*.zip) do (
     )
 )
 
-endlocal
 popd
+endlocal
