@@ -64,16 +64,22 @@ pipeline {
 
         
         stage('Send Email Report') {
-            steps {
-                emailext(
-                    subject: "Jenkins Build - CalculatorApp",
-                    body: "Build completed successfully. Find attached test report and zip file.",
-                    to: "${EMAIL}",
-                    attachmentsPattern: "${APP_DIR}\\test-reports\\*.txt, ${ZIP_FILE}"
+    steps {
+        script {
+            try {
+                emailext (
+                    to: 'radheshamwaghchaure23@gmail.com',
+                    subject: 'Build Report',
+                    body: 'Build completed.'
                 )
                 echo '✅ Email sent to mentor'
+            } catch (e) {
+                echo "❌ Failed to send email: ${e.message}"
             }
         }
+    }
+}
+
 
         stage('Cleanup Old Zips') {
             steps {
