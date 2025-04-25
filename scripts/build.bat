@@ -6,8 +6,8 @@ if not exist "..\build" (
     mkdir "..\build"
 )
 
-rem Compile all Java files to the build directory
-javac -d "..\build" "..\Calculator.java"
+rem Compile the Java source file
+javac -d "..\build" "..\CalculatorApp\Calculator.java"
 
 if %ERRORLEVEL% NEQ 0 (
     echo ❌ Compilation failed.
@@ -15,4 +15,3 @@ if %ERRORLEVEL% NEQ 0 (
 ) else (
     echo ✅ Compilation completed.
 )
-
