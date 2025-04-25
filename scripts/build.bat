@@ -5,7 +5,7 @@ echo ===== Compiling Java Source =====
 cd /d %~dp0..
 
 :: Define paths
-set "SRC=CalculatorApp\Calculator.java"
+set "SRC=src\com\calculator\Calculator.java"
 set "OUT=build"
 
 :: Create build folder if it doesn't exist
