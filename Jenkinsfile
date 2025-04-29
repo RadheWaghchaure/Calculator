@@ -53,18 +53,18 @@ pipeline {
             }
         }
         stage('Push Zip to GitHub') {
-           steps {
+             steps {
     withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
         bat '''
-            echo "Changing directory to workspace: %WORKSPACE%"
-            cd /d "%WORKSPACE%"
-            
-            echo "Current directory: %cd%"
+            echo "Changing directory to project folder"
+            cd /d C:\\Users\\radheshamw\\Desktop\\CalculatorApp
+
             echo "Executing push-to-github.bat..."
-            
             scripts\\push-to-github.bat
         '''
     }
+}
+
 }
 
 }
