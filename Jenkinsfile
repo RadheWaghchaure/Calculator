@@ -56,7 +56,7 @@ pipeline {
     steps {
         withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
             cd /d %WORKSPACE%
-            bat "cmd /c scripts\\push-to-github.bat"
+            bat "  cd /d %WORKSPACE% scripts\\push-to-github.bat"
 
         }
     }
