@@ -53,13 +53,15 @@ pipeline {
             }
         }
         stage('Push Zip to GitHub') {
-    steps {
-        withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+   steps {
+    withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+        bat '''
             cd /d %WORKSPACE%
-            bat "  cd /d %WORKSPACE% scripts\\push-to-github.bat"
-
-        }
+            scripts\\push-to-github.bat
+        '''
     }
+}
+
 }
 
 
