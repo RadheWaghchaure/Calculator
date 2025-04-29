@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/RadheWaghchaure/Calculator'
-                echo '✅ Code pulled from GitHub'
+                echo 'Code pulled from GitHub'
             }
         }
 
@@ -21,40 +21,41 @@ pipeline {
         stage('Build Java Code') {
             steps {
                 bat 'scripts/build.bat'
-                echo '✅ Build completed'
+                echo 'Build completed'
             }
         }
 
         stage('Run Unit Tests') {
             steps {
                bat 'scripts/test.bat'
-                echo '✅ Tests executed'
+                echo 'Tests executed'
             }
         }
 
         stage('Package JAR') {
             steps {
                 bat 'scripts/package.bat'
-                echo '✅ JAR packaged'
+                echo 'JAR packaged'
             }
         }
 
         stage('Run Application') {
             steps {
                 bat 'scripts/run.bat'
-                echo '✅ Application started in background'
+                echo 'Application started in background'
             }
         }
 
         stage('Archive Build') {
             steps {
                 bat 'scripts/archive.bat'
-                echo '✅ Build zipped'
+                echo ' Build zipped'
             }
         }
         stage('Push Zip to GitHub') {
     steps {
         withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+            cd /d %WORKSPACE%
             bat "cmd /c scripts\\push-to-github.bat"
 
         }
@@ -72,9 +73,9 @@ pipeline {
                     subject: 'Build Report',
                     body: 'Build completed.'
                 )
-                echo '✅ Email sent to mentor'
+                echo ' Email sent to mentor'
             } catch (e) {
-                echo "❌ Failed to send email: ${e.message}"
+                echo " Failed to send email: ${e.message}"
             }
         }
     }
@@ -84,7 +85,7 @@ pipeline {
         stage('Cleanup Old Zips') {
             steps {
                bat 'scripts/cleanup.bat'
-                echo '🧹 Old zip files cleaned up'
+                echo 'Old zip files cleaned up'
             }
         }
     }
